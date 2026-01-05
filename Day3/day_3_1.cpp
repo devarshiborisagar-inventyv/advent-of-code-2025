@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
 
-    string filename = "test.txt";
+    string filename = "input.txt";
     ifstream file(filename);
     int curr = 50;
     long long count = 0;
@@ -17,15 +17,27 @@ int main()
     {
         string line;
 
-        
+        long long ans=0;
+
 
         while (getline(file, line))
         {
+             if (!line.empty() && line.back() == '\r') {
+                line.pop_back();
+                
+            }
+            
+            
             cout << "Read line: " << line << std::endl;
+            
+            
             int n = line.size();
 
             char maxi = -1;
             int max_index = -1;
+            char maxi_two = -1;
+            int max_index_two = -1;
+            string number="";
 
             for (int i = 0; i < n; i++)
             {
@@ -37,44 +49,52 @@ int main()
                 }
             }
 
+            cout<<n<<endl;
+
             if (max_index == n - 1)
             {
-
-                char maxi_two = -1;
-                int max_index_two = -1;
 
                 for (int i = 0; i < n - 1; i++)
                 {
 
-                    if (line[i] > maxi)
+                    if (line[i] > maxi_two)
                     {
                         maxi_two = line[i];
                         max_index_two = i;
                     }
                 }
+
+                 number.push_back(maxi_two);
+                number.push_back(maxi);
+               
 
 
             }
             else
             {
 
-                char maxi_two = -1;
-                int max_index_two = -1;
-
-                for (int i = max_index + 1; i < n - 1; i++)
+                for (int i = max_index + 1; i < n ; i++)
                 {
-
-                    if (line[i] > maxi)
+                    if (line[i] > maxi_two)
                     {
                         maxi_two = line[i];
                         max_index_two = i;
                     }
                 }
 
+                number.push_back(maxi);
+                number.push_back(maxi_two);
+
                 
             }
 
-            cout << maxi << endl;
+
+            cout<<number<<endl;
+           long long num_to_add=stoll(number);
+           ans+=num_to_add;  
+        
         }
+
+        cout<<ans<<endl;
     }
 }
